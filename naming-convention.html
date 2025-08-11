@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Languages Naming Conventions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'code': ['Consolas', 'Monaco', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto p-4 max-w-7xl">
+        <div class="bg-gradient-to-r from-slate-900 to-slate-700 text-white rounded-t-xl p-6 text-center">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-code mr-3"></i>Programming Languages Naming Conventions
+            </h1>
+            <p class="text-lg opacity-90">Comprehensive Reference Guide for 60+ Programming Languages</p>
+        </div>
+        <div class="bg-white p-6 border-x border-gray-200">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
+                <div class="lg:col-span-3">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-filter mr-1"></i> Filter by Category:
+                    </label>
+                    <div class="flex flex-wrap gap-2" id="categoryFilters">
+                        <button class="px-3 py-1 text-xs rounded-full bg-blue-500 text-white category-btn active" data-category="all">All</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="web">Web</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="systems">Systems</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="script">Script</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="functional">Functional</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="mobile">Mobile</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="data">Data</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="embedded">Embedded</button>
+                        <button class="px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700 hover:bg-blue-100 category-btn" data-category="legacy">Legacy</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-search mr-1"></i> Search:
+                    </label>
+                    <input type="text" id="searchInput" placeholder="Type language name..."
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm" id="languageTable">
+                    <thead class="bg-slate-700 text-white">
+                        <tr>
+                            <th class="px-4 py-3 text-left font-semibold">Language</th>
+                            <th class="px-4 py-3 text-left font-semibold">Project Root</th>
+                            <th class="px-4 py-3 text-left font-semibold">Source Directories</th>
+                            <th class="px-4 py-3 text-left font-semibold">Files</th>
+                            <th class="px-4 py-3 text-left font-semibold">Rationale & Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        const languages = [
+            // Web/Frontend
+            { name: 'PHP', icon: 'fab fa-php', color: '#8993be', category: 'web', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.php', rationale: 'PSR-4 autoloading standard, Composer package conventions, Laravel/Symfony compatibility' },
+            { name: 'JavaScript/TypeScript', icon: 'fab fa-js', color: '#f7df1e', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.js/.ts', rationale: 'npm ecosystem standard, ES6 modules, React/Angular/Vue conventions' },
+            { name: 'Python', icon: 'fab fa-python', color: '#3776ab', category: 'web', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.py', rationale: 'PEP 8 official style guide, pip package conventions, Django/Flask standards' },
+            { name: 'Ruby', icon: 'fas fa-gem', color: '#cc342d', category: 'web', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.rb', rationale: 'Ruby gems convention, Rails framework standards, community consensus' },
+            { name: 'HTML/CSS', icon: 'fab fa-html5', color: '#e34f26', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.html/.css', rationale: 'W3C standards, SEO-friendly URLs, web server conventions' },
+            { name: 'Sass/SCSS', icon: 'fab fa-sass', color: '#cf649a', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.scss', rationale: 'CSS naming conventions, BEM methodology, preprocessor standards' },
+            { name: 'Vue.js', icon: 'fab fa-vuejs', color: '#4fc08d', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'PascalCase.vue', rationale: 'Vue CLI conventions, single file components, Vue ecosystem standards' },
+            { name: 'React/JSX', icon: 'fab fa-react', color: '#61dafb', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'PascalCase.jsx', rationale: 'React component conventions, create-react-app standards' },
+            { name: 'Svelte', icon: 'fas fa-fire', color: '#ff3e00', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'PascalCase.svelte', rationale: 'SvelteKit conventions, component-based architecture' },
+            { name: 'CoffeeScript', icon: 'fas fa-coffee', color: '#d2691e', category: 'web', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.coffee', rationale: 'JavaScript transpilation, npm ecosystem compatibility' },
+            // Systems/Desktop
+            { name: 'C#', icon: 'fab fa-microsoft', color: '#239120', category: 'systems', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.cs', rationale: '.NET Framework conventions, NuGet packages, Visual Studio templates' },
+            { name: 'Java', icon: 'fab fa-java', color: '#ed8b00', category: 'systems', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'PascalCase.java', rationale: 'Maven/Gradle project structure, Java package naming rules' },
+            { name: 'Kotlin', icon: 'fab fa-android', color: '#7f52ff', category: 'systems', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'PascalCase.kt', rationale: 'Follows Java ecosystem, JetBrains recommendations, Android development' },
+            { name: 'Swift', icon: 'fab fa-apple', color: '#fa7343', category: 'systems', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.swift', rationale: 'Xcode project structure, Apple style guide, iOS/macOS development' },
+            { name: 'C', icon: 'fas fa-cog', color: '#00599c', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.c', rationale: 'UNIX traditions, POSIX standards, GNU coding standards' },
+            { name: 'C++', icon: 'fas fa-plus', color: '#00599c', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.cpp', rationale: 'STL naming style, CMake conventions, ISO C++ guidelines' },
+            { name: 'Rust', icon: 'fab fa-rust', color: '#ce422b', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.rs', rationale: 'Cargo package manager, crates.io conventions' },
+            { name: 'Go', icon: 'fab fa-golang', color: '#00add8', category: 'systems', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'snake_case.go', rationale: 'Go modules system, package naming rules, gofmt standards' },
+            { name: 'Objective-C', icon: 'fab fa-apple', color: '#659ad2', category: 'systems', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.m', rationale: 'Apple Cocoa framework conventions, Xcode project structure' },
+            { name: 'VB.NET', icon: 'fab fa-microsoft', color: '#512bd4', category: 'systems', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.vb', rationale: '.NET Framework compatibility, Visual Studio conventions' },
+            { name: 'Delphi/Pascal', icon: 'fas fa-code', color: '#dc143c', category: 'systems', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.pas', rationale: 'Embarcadero conventions, Object Pascal standards' },
+            { name: 'Crystal', icon: 'fas fa-gem', color: '#701516', category: 'systems', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.cr', rationale: 'Ruby-like syntax, shard system, performance-focused' },
+            { name: 'Zig', icon: 'fas fa-bolt', color: '#f74c00', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.zig', rationale: 'Systems programming conventions, C interop' },
+            { name: 'Nim', icon: 'fas fa-crown', color: '#1e90ff', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.nim', rationale: 'Python-inspired syntax, nimble package manager' },
+            // Scripting
+            { name: 'Lua', icon: 'fas fa-moon', color: '#000080', category: 'script', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.lua', rationale: 'C API consistency, require() path conventions, game scripting' },
+            { name: 'Bash', icon: 'fas fa-terminal', color: '#4eaa25', category: 'script', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.sh', rationale: 'Shell script conventions, UNIX command naming' },
+            { name: 'PowerShell', icon: 'fab fa-windows', color: '#012456', category: 'script', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.ps1', rationale: '.NET ecosystem integration, Windows native conventions' },
+            { name: 'Perl', icon: 'fas fa-camel', color: '#39457a', category: 'script', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.pl', rationale: 'CPAN conventions, There\'s More Than One Way To Do It philosophy' },
+            { name: 'AWK', icon: 'fas fa-file-code', color: '#008080', category: 'script', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.awk', rationale: 'UNIX text processing conventions, POSIX standards' },
+            { name: 'Tcl', icon: 'fas fa-scroll', color: '#d2691e', category: 'script', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.tcl', rationale: 'Tool Command Language conventions, Tk GUI framework' },
+            // Functional
+            { name: 'Haskell', icon: 'fas fa-lambda', color: '#5e5086', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'PascalCase.hs', rationale: 'Cabal package conventions, Hackage standards, module naming' },
+            { name: 'F#', icon: 'fab fa-microsoft', color: '#378bba', category: 'functional', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.fs', rationale: '.NET ecosystem compatibility, NuGet standards' },
+            { name: 'Clojure', icon: 'fas fa-parentheses', color: '#5881d8', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab_case.clj', rationale: 'Leiningen build tool, JVM platform conventions' },
+            { name: 'Erlang', icon: 'fas fa-code', color: '#a90533', category: 'functional', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.erl', rationale: 'OTP conventions, BEAM virtual machine, telecom heritage' },
+            { name: 'Elixir', icon: 'fas fa-droplet', color: '#6e4a7e', category: 'functional', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.ex', rationale: 'Phoenix framework, Mix build tool, BEAM VM compatibility' },
+            { name: 'Scala', icon: 'fas fa-layer-group', color: '#dc322f', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'PascalCase.scala', rationale: 'SBT build tool, JVM ecosystem, functional-OOP hybrid' },
+            { name: 'OCaml', icon: 'fas fa-camel', color: '#ec6813', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.ml', rationale: 'OPAM package manager, academic ML traditions' },
+            { name: 'Scheme', icon: 'fas fa-parentheses', color: '#9f1d35', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.scm', rationale: 'Lisp family traditions, R7RS standard' },
+            { name: 'Racket', icon: 'fas fa-rocket', color: '#3e5ba9', category: 'functional', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.rkt', rationale: 'DrRacket IDE, package system, Scheme heritage' },
+            // Mobile
+            { name: 'Dart/Flutter', icon: 'fas fa-mobile-alt', color: '#0175c2', category: 'mobile', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.dart', rationale: 'Pub package conventions, Flutter framework standards' },
+            { name: 'React Native', icon: 'fab fa-react', color: '#61dafb', category: 'mobile', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'PascalCase.tsx', rationale: 'React ecosystem, Metro bundler, cross-platform conventions' },
+            { name: 'Xamarin', icon: 'fab fa-microsoft', color: '#3498db', category: 'mobile', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.cs', rationale: '.NET MAUI, cross-platform mobile development' },
+            { name: 'Ionic', icon: 'fas fa-bolt', color: '#3880ff', category: 'mobile', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.ts', rationale: 'Angular/React/Vue integration, Capacitor framework' },
+            // Data/Analytics
+            { name: 'SQL', icon: 'fas fa-database', color: '#336791', category: 'data', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.sql', rationale: 'Database naming conventions, ANSI SQL standards' },
+            { name: 'R', icon: 'fab fa-r-project', color: '#276dc3', category: 'data', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.R', rationale: 'CRAN package standards, tidyverse conventions' },
+            { name: 'SAS', icon: 'fas fa-chart-bar', color: '#1e40af', category: 'data', projectRoot: 'UPPERCASE', sourceDir: 'UPPERCASE', files: 'UPPERCASE.sas', rationale: 'Enterprise analytics conventions, mainframe heritage' },
+            { name: 'SPSS', icon: 'fas fa-chart-line', color: '#1f4e79', category: 'data', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.sps', rationale: 'Statistical package conventions, GUI-driven workflows' },
+            { name: 'Stata', icon: 'fas fa-calculator', color: '#1b365d', category: 'data', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.do', rationale: 'Econometric analysis conventions, do-file standards' },
+            { name: 'Julia', icon: 'fas fa-atom', color: '#9558b2', category: 'data', projectRoot: 'PascalCase', sourceDir: 'snake_case', files: 'PascalCase.jl', rationale: 'Pkg.jl package manager, scientific computing focus' },
+            // Embedded/Hardware
+            { name: 'Arduino C++', icon: 'fas fa-microchip', color: '#00979d', category: 'embedded', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.ino', rationale: 'Arduino IDE conventions, embedded C++ standards' },
+            { name: 'Assembly', icon: 'fas fa-cogs', color: '#525252', category: 'embedded', projectRoot: 'UPPERCASE', sourceDir: 'UPPERCASE', files: 'UPPERCASE.asm', rationale: 'Assembler traditions, register naming conventions' },
+            { name: 'Verilog', icon: 'fas fa-circuit-board', color: '#ff6b35', category: 'embedded', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.v', rationale: 'Hardware description language, IEEE standards' },
+            { name: 'VHDL', icon: 'fas fa-microchip', color: '#1e3a8a', category: 'embedded', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.vhd', rationale: 'IEEE 1076 standard, hardware synthesis tools' },
+            { name: 'SystemVerilog', icon: 'fas fa-brain', color: '#8b5cf6', category: 'embedded', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.sv', rationale: 'SystemVerilog LRM, verification methodology' },
+            // Legacy
+            { name: 'FORTRAN', icon: 'fas fa-calculator', color: '#734f96', category: 'legacy', projectRoot: 'UPPERCASE', sourceDir: 'UPPERCASE', files: 'UPPERCASE.f90', rationale: 'Historical scientific computing, column-based formatting' },
+            { name: 'COBOL', icon: 'fas fa-file-invoice', color: '#005ca5', category: 'legacy', projectRoot: 'UPPERCASE', sourceDir: 'UPPERCASE', files: 'UPPERCASE.cbl', rationale: 'Mainframe business applications, ANSI standards' },
+            { name: 'Ada', icon: 'fas fa-shield-alt', color: '#02f88c', category: 'legacy', projectRoot: 'PascalCase', sourceDir: 'lowercase', files: 'lowercase.adb', rationale: 'Military/aerospace standards, Ada Reference Manual' },
+            { name: 'Pascal', icon: 'fas fa-triangle', color: '#e3f2fd', category: 'legacy', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.pas', rationale: 'Educational programming, structured programming paradigm' },
+            { name: 'Modula-2', icon: 'fas fa-cube', color: '#8bc34a', category: 'legacy', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.mod', rationale: 'Modular programming, Wirth language family' },
+            { name: 'Smalltalk', icon: 'fas fa-comment', color: '#ff5722', category: 'legacy', projectRoot: 'PascalCase', sourceDir: 'PascalCase', files: 'PascalCase.st', rationale: 'Object-oriented pioneer, message-passing paradigm' },
+            { name: 'Prolog', icon: 'fas fa-brain', color: '#ffeb3b', category: 'legacy', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.pl', rationale: 'Logic programming, ISO Prolog standard' },
+            { name: 'LISP', icon: 'fas fa-parentheses', color: '#81c784', category: 'legacy', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.lisp', rationale: 'AI research heritage, symbolic computation' },
+            // Additional Modern Languages
+            { name: 'Groovy', icon: 'fas fa-leaf', color: '#4298b8', category: 'script', projectRoot: 'kebab-case', sourceDir: 'lowercase', files: 'PascalCase.groovy', rationale: 'JVM scripting, Gradle build system, Java compatibility' },
+            { name: 'D', icon: 'fas fa-code', color: '#b03931', category: 'systems', projectRoot: 'kebab-case', sourceDir: 'snake_case', files: 'snake_case.d', rationale: 'Systems programming, C++ improvement, dub package manager' },
+            { name: 'V', icon: 'fas fa-bolt', color: '#5d87bf', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.v', rationale: 'Simple and fast, C translation, memory safety' },
+            { name: 'Odin', icon: 'fas fa-hammer', color: '#1f5582', category: 'systems', projectRoot: 'snake_case', sourceDir: 'snake_case', files: 'snake_case.odin', rationale: 'Game development focus, data-oriented design' },
+            { name: 'Red', icon: 'fas fa-circle', color: '#f50000', category: 'script', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.red', rationale: 'Full-stack programming, REBOL heritage' },
+            { name: 'Raku (Perl 6)', icon: 'fas fa-butterfly', color: '#0000fb', category: 'script', projectRoot: 'kebab-case', sourceDir: 'kebab-case', files: 'kebab-case.raku', rationale: 'Perl evolution, gradual typing, unicode-first' }
+        ];
+
+        const categoryColors = {
+            web: 'bg-blue-100 border-blue-300',
+            systems: 'bg-orange-100 border-orange-300',
+            script: 'bg-green-100 border-green-300',
+            functional: 'bg-purple-100 border-purple-300',
+            mobile: 'bg-red-100 border-red-300',
+            data: 'bg-teal-100 border-teal-300',
+            embedded: 'bg-yellow-100 border-yellow-300',
+            legacy: 'bg-gray-100 border-gray-300'
+        };
+
+        function renderTable(filteredLanguages = languages) {
+            const tbody = document.getElementById('tableBody');
+            if (filteredLanguages.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-8 text-gray-500 font-semibold">
+                            Không tìm thấy ngôn ngữ nào phù hợp.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredLanguages.map(lang => `
+                <tr class="border-b hover:bg-gray-50 ${categoryColors[lang.category]} language-row" data-category="${lang.category}">
+                    <td class="px-4 py-3">
+                        <div class="flex items-center gap-2">
+                            <i class="${lang.icon}" style="color: ${lang.color};"></i>
+                            <span class="font-semibold">${lang.name}</span>
+                            <span class="px-2 py-1 text-xs rounded-full bg-${lang.category === 'web' ? 'blue' : lang.category === 'systems' ? 'orange' : lang.category === 'script' ? 'green' : lang.category === 'functional' ? 'purple' : lang.category === 'mobile' ? 'red' : lang.category === 'data' ? 'teal' : lang.category === 'embedded' ? 'yellow' : 'gray'}-500 text-white uppercase">${lang.category}</span>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <code class="bg-gray-100 px-2 py-1 rounded font-code text-sm border-l-2 border-blue-400">${lang.projectRoot}</code>
+                    </td>
+                    <td class="px-4 py-3">
+                        <code class="bg-gray-100 px-2 py-1 rounded font-code text-sm border-l-2 border-blue-400">${lang.sourceDir}</code>
+                    </td>
+                    <td class="px-4 py-3">
+                        <code class="bg-gray-100 px-2 py-1 rounded font-code text-sm border-l-2 border-blue-400">${lang.files}</code>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${lang.rationale}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterByCategory(category) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-500', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            const activeBtn = document.querySelector(`[data-category="${category}"]`);
+            activeBtn.classList.add('active', 'bg-blue-500', 'text-white');
+            activeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+
+            const filteredLanguages = category === 'all' ? languages : languages.filter(lang => lang.category === category);
+            renderTable(filteredLanguages);
+        }
+
+        function searchLanguages() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+            
+            let filteredLanguages = activeCategory === 'all' ? languages : languages.filter(lang => lang.category === activeCategory);
+            
+            const finalFiltered = filteredLanguages.filter(lang => 
+                lang.name.toLowerCase().includes(searchTerm)
+            );
+            
+            renderTable(finalFiltered);
+        }
+
+        // Event listeners
+        document.getElementById('categoryFilters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-btn')) {
+                filterByCategory(e.target.dataset.category);
+            }
+        });
+        
+        document.getElementById('searchInput').addEventListener('input', searchLanguages);
+        
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
